@@ -44,41 +44,26 @@ object Main {
   /**
    * Exercise 2
    */
-//  def balance(chars: List[Char]): Boolean = {
-    // loop chars check if you find a left brace
-    // store the placement in the string
-    // continue loop for matching right brace
-    // check if a right brace is found
-    // if it isn't store the next left brace
-    // if it is found pop the right brace and the left brace using the location
-    // if no right brace found after end of
+  def balance(chars: List[Char]): Boolean = {
+    removeMatchingBraces(filterOutNonBraces(chars))
+  }
 
-//    val nonMatchingBraceCount = braceMatchIter(chars)
-//    if (nonMatchingBraceCount == 0) true else false
+  def filterOutNonBraces(chars: List[Char]): List[Char] = {
+    val allowedChars = List('(',')')
+    chars filter allowedChars.contains
+  }
 
-//  }
-//
-//  def braceMatchIter(chars: List[Char]): Int = {
-//    val matchCount = 0
-//    if (chars.isEmpty) braceMatch(0, 0, 0, matchCount, chars, chars) else matchCount
-//  }
-//
-//  def braceMatch(braceLeftPos: Int, braceRightPos: Int, pos: Int, matchCount: Int, charsRemaining: List[Char], chars: List[Char]): Int = {
-//    val nextChar = charsRemaining.head
-//    if (nextChar == "(") {
-//      braceMatch(pos, -1, pos + 1, matchCount, charsRemaining.tail)
-//    } else if (nextChar == ")" && braceFound(braceLeftPos)) {
-//
-//    }
-//
-////    else braceMatch(-1, -1, pos + 1, matchCount, charsRemaining.tail)
-//
-////    braceMatch(braceLeftPos, braceRightPos, pos + 1, matchCount, charsRemaining.tail)
-//  }
-//
-//  def braceFound(pos: Int): Boolean = {
-//    pos => 0
-//  }
+  def removeMatchingBraces(remainingChars: List[Char]): Boolean = {
+    val diffSizeBefore = remainingChars.size
+    val remainingCharsAfterDiff = remainingChars.mkString.replaceAll("\\(\\)", "")
+    if (remainingCharsAfterDiff.length == 0) {
+      true
+    } else if (diffSizeBefore == remainingCharsAfterDiff.length) {
+      false
+    } else {
+      removeMatchingBraces(remainingCharsAfterDiff.toList)
+    }
+  }
 
   /**
    * Exercise 3
